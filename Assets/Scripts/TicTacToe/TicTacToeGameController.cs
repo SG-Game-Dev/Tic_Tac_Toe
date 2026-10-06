@@ -18,7 +18,7 @@ namespace TicTacToe
 
         BoardView board;
         PlayerMoves player_X;
-        PlayerMoves player_O;
+        PlayerMoves player_O;  //player2 or ai
 
         void Awake()
         {
