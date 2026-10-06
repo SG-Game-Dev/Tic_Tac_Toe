@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class TicTacToe
+namespace TicTacToe
 {
     public class PlayerMoves
     {

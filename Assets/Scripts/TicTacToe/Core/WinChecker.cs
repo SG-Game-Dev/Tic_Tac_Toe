@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WinChecker 
+namespace TicTacToe
 {
     public static class WinChecker
     {
