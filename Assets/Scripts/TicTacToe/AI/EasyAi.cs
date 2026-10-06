@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TicTacToe
 {
-    class EasyAi : IAiStrategy
+    public class EasyAi : IAiStrategy
     {
         readonly AiContext ctx;
         public EasyAi(AiContext ctx) { this.ctx = ctx; }
