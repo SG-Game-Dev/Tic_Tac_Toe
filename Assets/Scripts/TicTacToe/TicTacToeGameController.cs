@@ -39,118 +39,47 @@ namespace TicTacToe
             if (buttonText == null || !isPlaying) return;
 
             if (isHuman)
-                PlayerWithHumen(buttonText,cell);
-            else PlayeWithAi(buttonText, cell);
+            {
+                ApplyMove(turn ? player_X : player_O, cell);
+                turn = !turn;
+            }
+            else
+            {
+                ApplyMove(player_X, cell);
+                if (isPlaying && countClick < 9) AiMove();
+            }
+
+            CheckDraw();
 
         }
-        void PlayeWithAi(TextMeshProUGUI buttonText, GameObject cell)
-        {
-            // Player X turn
 
-            buttonText.text = player_X.Mark;
-            player_X.Moves.Add(cell);
-            board.LockCell(cell);
-            countClick++;
-
-
-            // Winner check
-            if (player_X.Moves.Count >= 3 && WinChecker.CheckWinner(player_X.Moves))
-            {
-                Debug.Log("🎉 X जीत गया!");
-                isPlaying = false;
-                return;
-            }
-
-            // Player Y turn
-
-            if (countClick < 9)
-            {
-                // player2 move                
-                AiMove();
-            }
-
-            // Draw check
-            if (countClick >= 9)
-            {
-                isPlaying = false;
-                Debug.Log("🤝 Match Draw");
-            }
-
-        }
-        void PlayerWithHumen(TextMeshProUGUI buttonText, GameObject cell)
-        {
-            // Player X turn           
-            if (turn)
-            {
-                buttonText.text = player_X.Mark;
-                player_X.Moves.Add(cell);
-                board.LockCell(cell);
-                countClick++;               
-            }
-
-            // Winner check
-            if (player_X.Moves.Count >= 3 && WinChecker.CheckWinner(player_X.Moves))
-            {
-                Debug.Log("🎉 X जीत गया!");
-                isPlaying = false;
-                return;
-            }
-
-            // Player Y turn
-            if (!turn)
-            {
-                if (countClick < 9)
-                {
-                    // player2 move
-                    MovePlayer_O(buttonText, cell);
-                    //AiMove();
-                }
-            }
-
-            // Draw check
-            if (countClick >= 9)
-            {
-                isPlaying = false;
-                Debug.Log("🤝 Match Draw");
-            }
-
-            turn = !turn;
-        }
         void AiMove()
         {
             IAiStrategy strategy = new EasyAi(new AiContext(board, player_X, player_O));
             GameObject move = strategy.ChooseMove();
 
-            if (move != null) ApplyAiMove(move);
+            if (move != null) ApplyMove(player_O, move);
         }
-
-        void ApplyAiMove(GameObject cell)
+        void ApplyMove(PlayerMoves player, GameObject cell)
         {
-            board.SetMark(cell, player_O.Mark);
-            player_O.Moves.Add(cell);
+            board.SetMark(cell, player.Mark);
+            player.Moves.Add(cell);
             board.LockCell(cell);
             countClick++;
 
-            if (WinChecker.CheckWinner(player_O.Moves))
+            if (player.Moves.Count >= 3 && WinChecker.CheckWinner(player.Moves))
             {
-                Debug.Log("🤖 O (player_O) जीत गया!");
+                Debug.Log($"🎉 {player.Mark} जीत गया!");
                 isPlaying = false;
             }
         }
 
-        void MovePlayer_O(TextMeshProUGUI buttonText, GameObject cell)
+        void CheckDraw()
         {
-            buttonText.text = player_O.Mark;
-            player_O.Moves.Add(cell);
-            board.LockCell(cell);
-            countClick++;
-
-            // Winner check
-            if (player_O.Moves.Count >= 3 && WinChecker.CheckWinner(player_O.Moves))
+            if (countClick >= 9 && isPlaying)
             {
-                Debug.Log("🎉 O जीत गया!");
                 isPlaying = false;
-                return;
+                Debug.Log("🤝 Match Draw");
             }
         }
     }
