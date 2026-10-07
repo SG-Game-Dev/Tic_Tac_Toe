@@ -3653,7 +3653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TicTacToe.TicTacToeGameController
   buttons: {fileID: 58261083}
   turn: 1
-  aiMode: 1
   isPlaying: 1
   isHuman: 0
 --- !u!1660057539 &9223372036854775807

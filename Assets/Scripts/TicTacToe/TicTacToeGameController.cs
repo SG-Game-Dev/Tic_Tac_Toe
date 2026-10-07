@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using static TicTacToe_With_AiPlaye;
 
 namespace TicTacToe
 {
@@ -11,6 +10,10 @@ namespace TicTacToe
 
         public bool turn = true; // false = O, true = X
         int countClick;
+
+        [SerializeField]
+        [FormerlySerializedAs("aiSate")]
+        internal AiMode aiMode;
 
         [FormerlySerializedAs("isPlaye")]
         public bool isPlaying = true;
@@ -55,7 +58,7 @@ namespace TicTacToe
 
         void AiMove()
         {
-            IAiStrategy strategy = new EasyAi(new AiContext(board, player_X, player_O));
+            IAiStrategy strategy = AiFactory.Create(aiMode, new AiContext(board, player_X, player_O));
             GameObject move = strategy.ChooseMove();
 
             if (move != null) ApplyMove(player_O, move);
