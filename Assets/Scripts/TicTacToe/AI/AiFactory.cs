@@ -8,6 +8,7 @@
             switch (mode)
             {
                 case AiMode.SmartAi: return new SmartAi(ctx);
+                case AiMode.Minimax: return new MinimaxAi(ctx);
                 case AiMode.Easy:
                 default: return new EasyAi(ctx);
             }
