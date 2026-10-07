@@ -16,7 +16,7 @@ namespace TicTacToe
         internal AiMode aiMode;
 
         [FormerlySerializedAs("isPlaye")]
-        public bool isPlaying = true;
+        public static bool isPlaying = true;
         public bool isHuman = true;
 
         BoardView board;
@@ -34,6 +34,7 @@ namespace TicTacToe
 
         void Start()
         {
+            isPlaying = false;
             board.BindClicks(OnClick);
         }
 
