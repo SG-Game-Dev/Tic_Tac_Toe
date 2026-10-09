@@ -18,8 +18,7 @@ namespace TicTacToe
         }
 
         public void Restart()
-        {
-            Play();
+        {            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
