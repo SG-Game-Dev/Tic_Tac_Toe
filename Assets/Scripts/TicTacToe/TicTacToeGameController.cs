@@ -9,6 +9,7 @@ namespace TicTacToe
         [SerializeField] GameObject buttons;
 
         public bool turn = true; // false = O, true = X
+        public static bool isWinner = false;
         int countClick;
 
         [SerializeField]
@@ -25,6 +26,8 @@ namespace TicTacToe
 
         void Awake()
         {
+            isWinner = false;
+
             board = new BoardView(buttons);
             player_X = new PlayerMoves("X");
             player_O = new PlayerMoves("O");
@@ -73,6 +76,7 @@ namespace TicTacToe
 
             if (player.Moves.Count >= 3 && WinChecker.CheckWinner(player.Moves))
             {
+                isWinner = turn;
                 Debug.Log($"🎉 {player.Mark} जीत गया!");
                 isPlaying = false;
             }
@@ -82,6 +86,7 @@ namespace TicTacToe
         {
             if (countClick >= 9 && isPlaying)
             {
+                isWinner = false;
                 isPlaying = false;
                 Debug.Log("🤝 Match Draw");
             }
