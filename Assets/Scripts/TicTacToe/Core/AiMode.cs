@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe
 {
-    internal enum AiMode
+    public  enum AiMode
     {
 
         Easy,

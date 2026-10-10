@@ -13,7 +13,7 @@ namespace TicTacToe
         public TextMeshProUGUI symbol;
         public GameObject winnerImage;
         public GameObject drawImage;
-        //public GameObject 
+        public TicTacToeGameController gameCont;
 
         static bool isRestart = false;
 
@@ -55,7 +55,7 @@ namespace TicTacToe
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public void ShowResultPage(string text,bool isWinner,bool isDraw)
+        public void ShowResultPage(string text, bool isWinner, bool isDraw)
         {
             symbol.text = text;
             winnerImage.SetActive(isWinner);
@@ -68,5 +68,31 @@ namespace TicTacToe
             winnerPage.SetActive(true);
         }
 
+
+        public void PToP()
+        {
+            gameCont.isHuman = true;
+        }
+        public void SmartAi()
+        {
+            AiModes(AiMode.SmartAi);
+        }
+
+        public void MinimaxAi()
+        {
+            AiModes(AiMode.Minimax);
+        }
+
+        public void EasyAi()
+        {
+            AiModes(AiMode.Easy);
+        }
+
+        public void AiModes(AiMode mode)
+        {
+            gameCont.isHuman = false;
+            gameCont.aiMode = mode;
+           
+        }
     }
 }
