@@ -54,6 +54,25 @@ namespace TicTacToe
             Time.timeScale = 1.0f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        public void OnExit()
+        {
+#if UNITY_EDITOR
+            // Unity Editor में सिर्फ Play Mode बंद होगा
+            UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+            // Windows/Mac/Linux standalone build
+            Application.Quit();
+#elif UNITY_ANDROID
+            // Android app बंद करने के लिए
+            Application.Quit();
+#elif UNITY_IOS
+            // iOS app बंद करने के लिए
+            Application.Quit();
+#else
+            // Other platforms (Linux, WebGL आदि)
+            Application.Quit();
+#endif
+        }
 
         public void ShowResultPage(string text, bool isWinner, bool isDraw)
         {
