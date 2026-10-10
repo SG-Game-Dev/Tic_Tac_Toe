@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace TicTacToe
 {
@@ -8,6 +10,11 @@ namespace TicTacToe
         public GameObject homePage;
         public GameObject startPage;
         public GameObject winnerPage;
+        public TextMeshProUGUI symbol;
+        public GameObject winnerImage;
+        public GameObject drawImage;
+        //public GameObject 
+
         static bool isRestart = false;
 
         private void Awake()
@@ -20,20 +27,13 @@ namespace TicTacToe
         {
             if (isRestart)
             {
-                homePage.SetActive(false); 
+                homePage.SetActive(false);
                 startPage.SetActive(true);
                 isRestart = false;
-                Play();                      
+                Play();
             }
         }
-        private void Update()
-        {
-            if ( TicTacToeGameController.isWinner)
-            {
-                winnerPage.SetActive(true);
-                TicTacToeGameController.isWinner = false;
-            }
-        }
+
         public void Play()
         {
             TicTacToeGameController.isPlaying = true;
@@ -51,8 +51,22 @@ namespace TicTacToe
             print("Call Restart:");
 
             isRestart = true;
-            Time.timeScale = 1.0f;  
+            Time.timeScale = 1.0f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        public void ShowResultPage(string text,bool isWinner,bool isDraw)
+        {
+            symbol.text = text;
+            winnerImage.SetActive(isWinner);
+            drawImage.SetActive(isDraw);
+            StartCoroutine(ShowWinnerPageAfterDelay());
+        }
+        private IEnumerator ShowWinnerPageAfterDelay()
+        {
+            yield return new WaitForSeconds(1f);
+            winnerPage.SetActive(true);
+        }
+
     }
 }

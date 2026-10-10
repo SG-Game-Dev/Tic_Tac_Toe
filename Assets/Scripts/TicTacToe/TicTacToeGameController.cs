@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,8 +9,7 @@ namespace TicTacToe
     {
         [SerializeField] GameObject buttons;
 
-        public bool turn = true; // false = O, true = X
-        public static bool isWinner = false;
+        public bool turn = true; // false = O, true = X        
         int countClick;
 
         [SerializeField]
@@ -24,10 +24,11 @@ namespace TicTacToe
         PlayerMoves player_X;
         PlayerMoves player_O;  //player2 or ai
 
+        //Ui variable
+        [SerializeField] public UiManager uiManager;
+
         void Awake()
         {
-            isWinner = false;
-
             board = new BoardView(buttons);
             player_X = new PlayerMoves("X");
             player_O = new PlayerMoves("O");
@@ -76,7 +77,7 @@ namespace TicTacToe
 
             if (player.Moves.Count >= 3 && WinChecker.CheckWinner(player.Moves))
             {
-                isWinner = turn;
+                uiManager.ShowResultPage(player.Mark, true, false);
                 Debug.Log($"🎉 {player.Mark} जीत गया!");
                 isPlaying = false;
             }
@@ -86,7 +87,7 @@ namespace TicTacToe
         {
             if (countClick >= 9 && isPlaying)
             {
-                isWinner = false;
+                uiManager.ShowResultPage("", false, true);
                 isPlaying = false;
                 Debug.Log("🤝 Match Draw");
             }
