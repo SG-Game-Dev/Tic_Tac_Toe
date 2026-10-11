@@ -26,7 +26,7 @@ namespace TicTacToe
 
         //Ui variable
         [SerializeField] public UiManager uiManager;
-
+        
         void Awake()
         {
             board = new BoardView(buttons);
@@ -34,11 +34,12 @@ namespace TicTacToe
             player_O = new PlayerMoves("O");
 
             board.ClearAll();
+                       
         }
 
         void Start()
         {
-            isPlaying = false;
+            //isPlaying = false;
             board.BindClicks(OnClick);
         }
 

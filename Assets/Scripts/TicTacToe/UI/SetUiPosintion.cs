@@ -13,12 +13,12 @@ public class SetUiPosintion : MonoBehaviour
         {
             //print("protrait");
             contectBnt.anchoredPosition = Vector3.zero;
-            WecLable.anchoredPosition = new Vector3 (WecLable.anchoredPosition.x, -100f, 0);
+            WecLable.anchoredPosition = new Vector3 (WecLable.anchoredPosition.x, -0, 0);
         }
         else if (Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight)
         {
             //print("landscap.");
-            contectBnt.anchoredPosition = new Vector3(-99.53191f, WecLable.anchoredPosition.x, 0);
+            contectBnt.anchoredPosition = Vector3.zero;
             WecLable.anchoredPosition = new Vector3(WecLable.anchoredPosition.x, 0f, 0);
         }
     }

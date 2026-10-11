@@ -15,23 +15,25 @@ namespace TicTacToe
         public GameObject drawImage;
         public TicTacToeGameController gameCont;
 
-        static bool isRestart = false;
+        static public AiMode aiMode;
+        //static bool isRestart = false;
 
         private void Awake()
         {
             // हर scene load पर timeScale सही करें
             Time.timeScale = 1.0f;
+            print($"ai mode :{aiMode}");            
         }
 
         private void Start()
         {
-            if (isRestart)
-            {
-                homePage.SetActive(false);
-                startPage.SetActive(true);
-                isRestart = false;
-                Play();
-            }
+            //if (isRestart || homePage != null)
+            //{
+            //    homePage.SetActive(false);
+            //    startPage.SetActive(true);
+            //    isRestart = false;
+            //    Play();
+            //}            
         }
 
         public void Play()
@@ -48,11 +50,14 @@ namespace TicTacToe
 
         public void Restart()
         {
-            print("Call Restart:");
-
-            isRestart = true;
-            Time.timeScale = 1.0f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Play();
+            print($"ai mode:{aiMode} bu restart");
+            AiModes(aiMode);
+        }
+        public void LoadTargetScene(int sceneIndex)
+        {
+            SceneManager.LoadScene(sceneIndex);
         }
         public void OnExit()
         {
@@ -95,23 +100,25 @@ namespace TicTacToe
         public void SmartAi()
         {
             AiModes(AiMode.SmartAi);
+            aiMode = AiMode.SmartAi;
         }
 
         public void MinimaxAi()
         {
             AiModes(AiMode.Minimax);
+            aiMode = AiMode.Minimax;
         }
 
         public void EasyAi()
         {
             AiModes(AiMode.Easy);
+            aiMode = AiMode.Easy;
         }
 
         public void AiModes(AiMode mode)
         {
             gameCont.isHuman = false;
             gameCont.aiMode = mode;
-           
         }
     }
 }

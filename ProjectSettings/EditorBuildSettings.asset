@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Tic tac toe Game For Ai Logic.unity
-    guid: 9121eb442f048234686849fa9d9eb570
+    path: Assets/Scenes/Tic tac toe Game For Ai Logic UI.unity
+    guid: c5e1243d443b29d4186e4cf61ecfa9cf
+  - enabled: 1
+    path: Assets/Scenes/Tic tac toe Game For Ai Logic Game.unity
+    guid: 3357cdcbe3358b249ab833521845e27a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
