@@ -1,7 +1,8 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 namespace TicTacToe
 {
@@ -15,27 +16,26 @@ namespace TicTacToe
         public GameObject drawImage;
         public TicTacToeGameController gameCont;
 
-        static public AiMode aiMode;
-        //static bool isRestart = false;
+        public static AiMode aiMode;
+        public static bool isHuman;
+        public static bool isBack = false;
 
         private void Awake()
         {
-            // हर scene load पर timeScale सही करें
-            Time.timeScale = 1.0f;
-            print($"ai mode :{aiMode}");            
+            if (isHuman)
+                gameCont.isHuman = isHuman;
+            else
+                AiModes(aiMode);
         }
-
-        private void Start()
+        void Start()
         {
-            //if (isRestart || homePage != null)
-            //{
-            //    homePage.SetActive(false);
-            //    startPage.SetActive(true);
-            //    isRestart = false;
-            //    Play();
-            //}            
+            if (isBack)
+            {
+                homePage.SetActive(false);
+                startPage.SetActive(true);
+                isBack = false;
+            }
         }
-
         public void Play()
         {
             TicTacToeGameController.isPlaying = true;
@@ -52,12 +52,15 @@ namespace TicTacToe
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             Play();
-            print($"ai mode:{aiMode} bu restart");
-            AiModes(aiMode);
         }
         public void LoadTargetScene(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
+        }
+        public void Back()
+        {
+            isBack = true;
+            LoadTargetScene(0);
         }
         public void OnExit()
         {
@@ -95,23 +98,23 @@ namespace TicTacToe
 
         public void PToP()
         {
-            gameCont.isHuman = true;
+            isHuman = true;
         }
         public void SmartAi()
         {
-            AiModes(AiMode.SmartAi);
+            isHuman = false;
             aiMode = AiMode.SmartAi;
         }
 
         public void MinimaxAi()
         {
-            AiModes(AiMode.Minimax);
+            isHuman = false;
             aiMode = AiMode.Minimax;
         }
 
         public void EasyAi()
         {
-            AiModes(AiMode.Easy);
+            isHuman = false;
             aiMode = AiMode.Easy;
         }
 
