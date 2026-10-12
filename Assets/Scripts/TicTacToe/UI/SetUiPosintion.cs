@@ -5,21 +5,19 @@ public class SetUiPosintion : MonoBehaviour
     public RectTransform contectBnt;
     public RectTransform WecLable;
 
+    private bool? lastPortrait;
 
-    // Update is called once per frame
     void Update()
     {
-        if (Screen.orientation == ScreenOrientation.Portrait)
-        {
-            //print("protrait");
-            contectBnt.anchoredPosition = Vector3.zero;
-            WecLable.anchoredPosition = new Vector3 (WecLable.anchoredPosition.x, -0, 0);
-        }
-        else if (Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight)
-        {
-            //print("landscap.");
-            contectBnt.anchoredPosition = Vector3.zero;
-            WecLable.anchoredPosition = new Vector3(WecLable.anchoredPosition.x, 0f, 0);
-        }
+        if (contectBnt == null || WecLable == null || Screen.width <= 0 || Screen.height <= 0)
+            return;
+
+        bool isPortrait = Screen.height > Screen.width;
+        if (lastPortrait == isPortrait)
+            return;
+
+        lastPortrait = isPortrait;
+        contectBnt.anchoredPosition = Vector2.zero;
+        WecLable.anchoredPosition = new Vector2(WecLable.anchoredPosition.x,isPortrait ? -100f : 0f);
     }
 }
