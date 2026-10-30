@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -114,8 +115,7 @@ namespace TicTacToe
             manager.OnClientDisconnectCallback += OnClientDisconnected;
         }
 
-        static void ApproveConnection(NetworkManager.ConnectionApprovalRequest request,
-                                      NetworkManager.ConnectionApprovalResponse response)
+        static void ApproveConnection(NetworkManager.ConnectionApprovalRequest request,NetworkManager.ConnectionApprovalResponse response)
         {
             bool hasRoom = manager.ConnectedClientsIds.Count < MaxPlayers;
             response.Approved = hasRoom;
